@@ -17,7 +17,7 @@ if [ "$#" != "1" ]; then
 fi
 
 echo "Updating dotfiles..."
-stow --adopt --dotfiles .
+stow --dotfiles .
 
 if [ ! -z "$(git status --porcelain)" ]; then
   git add .
