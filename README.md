@@ -39,6 +39,7 @@ Useful keybinds (`⎵` is spacebar, `⌥` is alt/option, `<C-a>` is CTRL+A):
 - `⎵ff`: Find file
 - `⎵fb`: Find open buffer
 - `⎵fz`: Find in current buffer
+- `⎵fw`: Find in all files (requires `ripgrep` to be installed)
 - `⎵ra`: Refactor
 - `⎵th`: Change theme
 - `K`: LSP Hover
