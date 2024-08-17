@@ -1,0 +1,25 @@
+# ls
+alias l="ls -lh"
+alias ll="ls -alh"
+alias la="ll"
+
+# Python venv
+alias activate="source ./env/bin/activate"
+alias on="activate"
+alias off="deactivate"
+
+# Git
+alias lg="lazygit"
+alias g="git"
+alias gi="g"
+alias gs="g status"
+alias gp="g pull"
+alias ga="g add"
+alias gc="git commit"
+alias gss="git stash"
+alias gsu="git stash --include-untracked"
+alias gsp="git stash pop"
+
+# Generic
+alias clr="clear"
+
