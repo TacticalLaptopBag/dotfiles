@@ -5,3 +5,4 @@ setup.sh
 update.sh
 curl-install.sh
 .gitmodules
+zsh-plugins
