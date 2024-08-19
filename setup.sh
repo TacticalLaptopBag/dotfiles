@@ -32,6 +32,14 @@ verify_command npm
 verify_command node
 set -e
 
+echo "Populating git submodules..."
+git submodule init
+git submodule update
+
+echo "Setting up zsh plugins..."
+rm -rfv .oh-my-zsh/custom/plugins
+ln -s ../../zsh-plugins .oh-my-zsh/custom/plugins
+
 echo "Replacing dotfiles..."
 stow --adopt --dotfiles .
 echo "Restoring dotfiles in stow directory..."
