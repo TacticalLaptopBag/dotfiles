@@ -11,13 +11,13 @@ verify_command() {
 verify_command stow
 set -e
 
-if [ "$#" != "1" ]; then
-  echo "Usage: $0 \"<git-commit-msg>\""
-  exit 1
-fi
-
 echo "Updating dotfiles..."
 stow --dotfiles .
+
+if [ "$#" != "1" ]; then
+  echo "Add an argument to automatically commit to git: $0 \"<git-commit-msg>\""
+  exit 0
+fi
 
 if [ ! -z "$(git status --porcelain)" ]; then
   git add .
