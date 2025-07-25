@@ -12,10 +12,10 @@ try_install_depends() {
   which apt-get > /dev/null
   if [ "$?" == "0" ]; then
     echo "apt detected, installing dependencies..."
-    which node > /dev/null
 
     # Sometimes, Node isn't installed through apt. If it isn't installed at all, it's probably safe to use apt.
     NODE_DEPENDS=""
+    which node > /dev/null
     if [ "$?" != "0" ]; then
       NODE_DEPENDS="node npm"
     fi
@@ -37,6 +37,8 @@ git submodule init
 git submodule update
 
 echo "Setting up zsh plugins..."
+# TODO: zsh can't update when using links like this...
+# Need to find a better way to handle this
 rm -rfv .oh-my-zsh/custom/plugins
 ln -s ../../zsh-plugins .oh-my-zsh/custom/plugins
 
