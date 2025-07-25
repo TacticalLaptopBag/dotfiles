@@ -3,10 +3,12 @@ alias l="ls -lh"
 alias ll="ls -alh"
 alias la="ll"
 
-# Python venv
-alias activate="source ./env/bin/activate"
+# Python
 alias on="activate"
 alias off="deactivate"
+alias pyv="python --version"
+alias py="python"
+alias py3="python3"
 
 # Git
 alias lg="lazygit"
