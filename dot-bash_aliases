@@ -25,4 +25,4 @@ alias gsp="git stash pop"
 
 # Generic
 alias clr="clear"
-
+alias dop="xdg-open ."
