@@ -26,3 +26,8 @@ alias gsp="git stash pop"
 # Generic
 alias clr="clear"
 alias dop="xdg-open ."
+
+# Load machine-specific aliases
+if [ -f ~/.bash_aliases.local ]; then
+    . ~/.bash_aliases.local
+fi
