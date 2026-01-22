@@ -1,12 +1,9 @@
-# NeoVim Config
+**This repo is supposed to be used as config by NvChad users!**
 
-This config extends off of NvChad, following the instructions from this video:
-https://www.youtube.com/watch?v=4BnVeOUeZxc
+- The main nvchad repo (NvChad/NvChad) is used as a plugin by this repo.
+- So you just import its modules , like `require "nvchad.options" , require "nvchad.mappings"`
+- So you can delete the .git from this repo ( when you clone it locally ) or fork it :)
 
-Side effects of this config are:
-- Install NodeJS >= 16
-- Install pyright using `sudo npm -g install pyright`
-- Install pipx
-- Install ruff, mypy, and black using `pipx install ruff mypy black`
-- Install build-essentials and gcc: `sudo apt install build-essentials gcc`
+# Credits
 
+1) Lazyvim starter https://github.com/LazyVim/starter as nvchad's starter was inspired by Lazyvim's . It made a lot of things easier!
