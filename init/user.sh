@@ -14,11 +14,15 @@ if [ -z $SKIP_SYSTEM_SH ]; then
 fi
 
 # Pipx tools
+echo
 echo "Installing nifty pipx utils..."
+echo "-------------------------------------------------------------------------"
 pipx install uv git-profile
 
 # nvm
+echo
 echo "Installing nvm..."
+echo "-------------------------------------------------------------------------"
 NVM_LATEST=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
 curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_LATEST}/install.sh" | bash
 
@@ -29,7 +33,9 @@ nvm install --lts
 nvm use --lts
 
 # Lazygit
+echo
 echo "Installing lazygit..."
+echo "-------------------------------------------------------------------------"
 LAZYGIT_LATEST=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
 wget https://github.com/jesseduffield/lazygit/releases/download/${LAZYGIT_LATEST}/lazygit_${LAZYGIT_LATEST:1}_linux_x86_64.tar.gz -O /tmp/lazygit.tar.gz
 mkdir /tmp/lazygit
@@ -38,7 +44,9 @@ mv /tmp/lazygit/lazygit $HOME/.local/bin
 rm -rf /tmp/lazygit.tar.gz /tmp/lazygit/
 
 # Neovim
+echo
 echo "Installing neovim..."
+echo "-------------------------------------------------------------------------"
 NEOVIM_LATEST=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
 NEOVIM_NAME=nvim-linux-x86_64.appimage
 mkdir $HOME/Applications
@@ -48,11 +56,36 @@ rm -f $HOME/.local/bin/nvim
 ln -s $HOME/Applications/$NEOVIM_NAME $HOME/.local/bin/nvim
 
 # SSH Key
+echo
 echo "Generating SSH key..."
+echo "-------------------------------------------------------------------------"
 ssh-keygen -f $HOME/.ssh/id_ed25519 -t ed25519 -N ''
 
+# Flatpaks
+echo
+echo "Installing flatpaks..."
+echo "-------------------------------------------------------------------------"
+flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak --user install -y \
+    com.github.tchx84.Flatseal \
+    com.obsproject.Studio \
+    com.usebottles.Bottles \
+    io.freetubeapp.FreeTube \
+    io.github.alainm23.planify \
+    org.audacityteam.Audacity \
+    org.gnome.GTG \
+    org.kde.isoimagewriter \
+    org.kde.kdenlive \
+    org.keepassxc.KeePassXC \
+    org.libreoffice.LibreOffice \
+    org.mozilla.Thunderbird \
+    ch.protonmail.protonmail-bridge
+
+
 # Git profiles
+echo
 echo "Configure your git profiles:"
+echo "-------------------------------------------------------------------------"
 declare -A git_profile_names
 declare -A git_profile_users
 declare -A git_profile_emails
@@ -78,3 +111,6 @@ for profile in "${profile_order[@]}"; do
 done
 
 echo "Git profiles created in $HOME/.gitconfig"
+
+echo
+echo "All done!"

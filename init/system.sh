@@ -40,7 +40,9 @@ apt-get install \
         gnupg \
         gpg \
         ca-certificates \
-        libfuse2
+        libfuse2 \
+        vlc \
+        flatpak
 
 # Brave
 echo
