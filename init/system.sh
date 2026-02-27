@@ -97,16 +97,22 @@ EOF
 echo "Downloading and installing Nerd Fonts..."
 NERDFONTS_LATEST=$(curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
 NERDFONTS_DIR=/tmp/nerdfonts
+rm -rf ${NERDFONTS_DIR}
 mkdir ${NERDFONTS_DIR}
 function download_font {
+    if [ -z $2 ]; then
+        FILE_PREFIX=$1
+    else
+        FILE_PREFIX=$2
+    fi
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/${NERDFONTS_LATEST}/$1.zip -O ${NERDFONTS_DIR}/$1.zip
     mkdir ${NERDFONTS_DIR}/$1
     unzip ${NERDFONTS_DIR}/$1.zip -d ${NERDFONTS_DIR}/$1
-    FONT_NAME="${1}NerdFont-Regular.ttf"
+    FONT_NAME="${FILE_PREFIX}NerdFont-Regular.*"
     cp ${NERDFONTS_DIR}/$1/$FONT_NAME /usr/share/fonts
 }
 download_font ComicShannsMono
-download_font DroidSansMono
+download_font DroidSansMono DroidSansM
 download_font JetBrainsMono
 download_font RobotoMono
 download_font Ubuntu
