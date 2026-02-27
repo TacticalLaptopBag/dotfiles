@@ -98,8 +98,8 @@ cat > /usr/share/applications/jetbrains-toolbox.desktop <<'EOF'
 [Desktop Entry]
 Name=JetBrains Toolbox
 Comment=Manage your JetBrains IDEs
-Exec=/opt/jetbrains-toolbox/jetbrains-toolbox
-Icon=jetbrains-toolbox
+Exec=/opt/jetbrains-toolbox/bin/jetbrains-toolbox
+Icon=/opt/jetbrains-toolbox/bin/toolbox-tray-color.png
 Terminal=false
 Type=Application
 Categories=Development;IDE;
