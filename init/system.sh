@@ -19,7 +19,9 @@ set -e
 # ================================== PACKAGES ==================================
 # ==============================================================================
 
+echo
 echo "Installing packages..."
+echo "-------------------------------------------------------------------------"
 apt-get update
 apt-get install \
         apt-transport-https \
@@ -40,11 +42,15 @@ apt-get install \
         libfuse2
 
 # Brave
+echo
 echo "Installing Brave..."
+echo "-------------------------------------------------------------------------"
 curl -fsS https://dl.brave.com/install.sh | sh
 
 # VS Code
+echo
 echo "Installing VS Code..."
+echo "-------------------------------------------------------------------------"
 apt-get install wget gpg &&
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg &&
 install -D -o root -g root -m 644 microsoft.gpg /usr/share/keyrings/microsoft.gpg &&
@@ -59,6 +65,9 @@ apt-get update
 apt-get install code
 
 # Docker
+echo
+echo "Installing Docker..."
+echo "-------------------------------------------------------------------------"
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 chmod a+r /etc/apt/keyrings/docker.asc
@@ -73,10 +82,13 @@ apt-get update
 apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # JetBrains Toolbox
+echo
 echo "Installing JetBrains Toolbox..."
+echo "-------------------------------------------------------------------------"
 JB_URL=$(curl -s "https://data.services.jetbrains.com/products/releases?code=TBA&latest=true&type=release" \
     | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['TBA'][0]['downloads']['linux']['link'])")
 curl -L "$JB_URL" -o /tmp/jetbrains-toolbox.tar.gz
+sudo rm -rf /opt/jetbrains-toolbox
 mkdir -p /opt/jetbrains-toolbox
 tar xzf /tmp/jetbrains-toolbox.tar.gz --strip-components=1 -C /opt/jetbrains-toolbox
 rm /tmp/jetbrains-toolbox.tar.gz
@@ -94,7 +106,9 @@ StartupWMClass=jetbrains-toolbox
 EOF
 
 # Nerd Fonts
+echo
 echo "Downloading and installing Nerd Fonts..."
+echo "-------------------------------------------------------------------------"
 NERDFONTS_LATEST=$(curl -s https://api.github.com/repos/ryanoasis/nerd-fonts/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
 NERDFONTS_DIR=/tmp/nerdfonts
 rm -rf ${NERDFONTS_DIR}
@@ -124,6 +138,9 @@ fc-cache -f
 
 # AppImageLauncher
 # Their binary naming scheme is too complicated :(
+echo
+echo "Installing AppImageLauncher..."
+echo "-------------------------------------------------------------------------"
 curl -s https://api.github.com/repos/TheAssassin/AppImageLauncher/releases/latest \
     | grep -o 'https://[^"]*_amd64\.deb' \
     | xargs curl -Lo /tmp/appimagelauncher.deb
@@ -134,7 +151,9 @@ apt-get install /tmp/appimagelauncher.deb
 # ==============================================================================
 
 # Groups
+echo
 echo "Adding you to groups..."
+echo "-------------------------------------------------------------------------"
 usermod -aG docker,dialout $USER
 
 echo
@@ -153,6 +172,7 @@ if [ -z $SKIP_USER_SH ]; then
     done
 fi
 
+echo
 echo "Some configuration to-dos:"
 echo "  * Restart"
 echo "  * Sign into VS Code"
