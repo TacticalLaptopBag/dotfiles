@@ -28,8 +28,11 @@ apt-get install \
         apt-transport-https \
         python3 \
         python3-venv \
+        python3-pip \
         python-is-python3 \
         pipx \
+        rustup \
+        openjdk-25-jdk \
         vim-gtk3 \
         curl \
         wget \
