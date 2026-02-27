@@ -23,13 +23,14 @@ echo
 echo "Installing packages..."
 echo "-------------------------------------------------------------------------"
 apt-get update
+# Use vim-gtk3 for clipboard support
 apt-get install \
         apt-transport-https \
         python3 \
         python3-venv \
         python-is-python3 \
         pipx \
-        vim \
+        vim-gtk3 \
         curl \
         wget \
         build-essential \
