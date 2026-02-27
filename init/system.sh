@@ -11,7 +11,6 @@ if [ "$?" != "0" ]; then
     echo "This script can only run under Debian-based distros!"
     exit 1
 fi
-exit 0
 
 set -e
 
