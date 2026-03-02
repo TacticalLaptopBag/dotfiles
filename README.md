@@ -7,6 +7,10 @@ Ensure `git` and `stow` are installed.
 ```commandline
 curl -L https://raw.githubusercontent.com/TacticalLaptopBag/dotfiles/main/curl-install.sh | bash
 ```
+If you don't have `curl` installed:
+```commandline
+wget -qO - https://raw.githubusercontent.com/TacticalLaptopBag/dotfiles/main/curl-install.sh | bash
+```
 
 Or, alternatively:
 ```commandline
