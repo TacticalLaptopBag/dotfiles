@@ -45,7 +45,8 @@ apt-get install \
         ca-certificates \
         libfuse2 \
         vlc \
-        flatpak
+        flatpak \
+        stow
 
 # Brave
 echo
@@ -160,7 +161,7 @@ apt-get install /tmp/appimagelauncher.deb
 echo
 echo "Adding you to groups..."
 echo "-------------------------------------------------------------------------"
-usermod -aG docker,dialout $USER
+usermod -aG docker,dialout,uucp,tty $USER
 
 echo
 echo "All done!"
