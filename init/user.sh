@@ -56,10 +56,12 @@ rm -f $HOME/.local/bin/nvim
 ln -s $HOME/Applications/$NEOVIM_NAME $HOME/.local/bin/nvim
 
 # SSH Key
-echo
-echo "Generating SSH key..."
-echo "-------------------------------------------------------------------------"
-ssh-keygen -f $HOME/.ssh/id_ed25519 -t ed25519 -N ''
+if [ ! -f $HOME/.ssh/id_* ]; then
+    echo
+    echo "Generating SSH key..."
+    echo "-------------------------------------------------------------------------"
+    ssh-keygen -f $HOME/.ssh/id_ed25519 -t ed25519 -N ''
+fi
 
 # Flatpaks
 echo
