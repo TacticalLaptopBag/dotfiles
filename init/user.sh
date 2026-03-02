@@ -13,6 +13,9 @@ if [ -z $SKIP_SYSTEM_SH ]; then
     done
 fi
 
+# Ensure path
+export PATH="$PATH:$HOME/.local/bin"
+
 # Pipx tools
 echo
 echo "Installing nifty pipx utils..."
