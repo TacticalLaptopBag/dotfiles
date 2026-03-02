@@ -86,7 +86,7 @@ Components: stable
 Signed-By: /etc/apt/keyrings/docker.asc
 EOF
 apt-get update
-apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # JetBrains Toolbox
 echo
@@ -151,7 +151,7 @@ echo "-------------------------------------------------------------------------"
 curl -s https://api.github.com/repos/TheAssassin/AppImageLauncher/releases/latest \
     | grep -o 'https://[^"]*_amd64\.deb' \
     | xargs curl -Lo /tmp/appimagelauncher.deb
-apt-get install /tmp/appimagelauncher.deb
+apt-get install -y /tmp/appimagelauncher.deb
 
 # ==============================================================================
 # =============================== CONFIGURATION ================================
