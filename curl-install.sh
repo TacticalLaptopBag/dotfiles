@@ -16,6 +16,8 @@ fi
 
 set -e
 
+# If a .files already exists, archive it
+mv -v ~/.files ~/.files.$(date +%Y-%m-%d).bak || true
 git clone git@github.com:TacticalLaptopBag/dotfiles.git ~/.files/ || git clone https://github.com/TacticalLaptopBag/dotfiles.git ~/.files/
 cd ~/.files/
 git submodule update --init --recursive
