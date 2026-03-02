@@ -57,7 +57,7 @@ if ! command -v nvim >& /dev/null; then
     echo "-------------------------------------------------------------------------"
     NEOVIM_LATEST=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
     NEOVIM_NAME=nvim-linux-x86_64.appimage
-    mkdir $HOME/Applications
+    mkdir -p $HOME/Applications
     wget https://github.com/neovim/neovim/releases/download/$NEOVIM_LATEST/$NEOVIM_NAME -O $HOME/Applications/$NEOVIM_NAME
     chmod +x $HOME/Applications/$NEOVIM_NAME
     rm -f $HOME/.local/bin/nvim
