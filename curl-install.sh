@@ -22,7 +22,9 @@ git submodule update --init --recursive
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 while true; do
+    unset -e
     read -rp "Would you like to run system.sh or user.sh? (system/user/both/n): " run_init
+    set -e
     case "$run_init" in
         system) SKIP_USER_SH=1 sudo "$HOME/.files/init/system.sh"; break ;;
         user) SKIP_SYSTEM_SH=1 "$HOME/.files/init/user.sh"; break ;;
