@@ -69,7 +69,7 @@ flatpak --user remote-add --if-not-exists flathub https://dl.flathub.org/repo/fl
 flatpak --user install -y \
     com.github.tchx84.Flatseal \
     com.obsproject.Studio \
-    com.usebottles.Bottles \
+    com.usebottles.bottles \
     io.freetubeapp.FreeTube \
     io.github.alainm23.planify \
     org.audacityteam.Audacity \
