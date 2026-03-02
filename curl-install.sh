@@ -1,6 +1,20 @@
-#!/bin/bash -e
+#!/bin/bash
 
 OLD_CWD=`pwd`
+
+which git > /dev/null
+if [ $? != 0 ]; then
+    which apt-get > /dev/null
+    if [ $? != 0 ]; then
+        echo "git is not installed! This is required for the script to run."
+        exit 1
+    fi
+    echo "Installing git..."
+    sudo apt-get update -y
+    sudo apt-get install -y git
+fi
+
+set -e
 
 git clone git@github.com:TacticalLaptopBag/dotfiles.git ~/.files/ || git clone https://github.com/TacticalLaptopBag/dotfiles.git ~/.files/
 cd ~/.files/
