@@ -20,40 +20,46 @@ echo "-------------------------------------------------------------------------"
 pipx install uv git-profile
 
 # nvm
-echo
-echo "Installing nvm..."
-echo "-------------------------------------------------------------------------"
-NVM_LATEST=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
-curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_LATEST}/install.sh" | bash
+if ! command -v nvm >& /dev/null; then
+    echo
+    echo "Installing nvm..."
+    echo "-------------------------------------------------------------------------"
+    NVM_LATEST=$(curl -s https://api.github.com/repos/nvm-sh/nvm/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+    curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_LATEST}/install.sh" | bash
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-nvm install --lts
-nvm use --lts
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+    nvm install --lts
+    nvm use --lts
+fi
 
 # Lazygit
-echo
-echo "Installing lazygit..."
-echo "-------------------------------------------------------------------------"
-LAZYGIT_LATEST=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
-wget https://github.com/jesseduffield/lazygit/releases/download/${LAZYGIT_LATEST}/lazygit_${LAZYGIT_LATEST:1}_linux_x86_64.tar.gz -O /tmp/lazygit.tar.gz
-mkdir /tmp/lazygit
-tar xzf /tmp/lazygit.tar.gz -C /tmp/lazygit
-mv /tmp/lazygit/lazygit $HOME/.local/bin
-rm -rf /tmp/lazygit.tar.gz /tmp/lazygit/
+if ! command -v lazygit >& /dev/null; then
+    echo
+    echo "Installing lazygit..."
+    echo "-------------------------------------------------------------------------"
+    LAZYGIT_LATEST=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+    wget https://github.com/jesseduffield/lazygit/releases/download/${LAZYGIT_LATEST}/lazygit_${LAZYGIT_LATEST:1}_linux_x86_64.tar.gz -O /tmp/lazygit.tar.gz
+    mkdir /tmp/lazygit
+    tar xzf /tmp/lazygit.tar.gz -C /tmp/lazygit
+    mv /tmp/lazygit/lazygit $HOME/.local/bin
+    rm -rf /tmp/lazygit.tar.gz /tmp/lazygit/
+fi
 
 # Neovim
-echo
-echo "Installing neovim..."
-echo "-------------------------------------------------------------------------"
-NEOVIM_LATEST=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
-NEOVIM_NAME=nvim-linux-x86_64.appimage
-mkdir $HOME/Applications
-wget https://github.com/neovim/neovim/releases/download/$NEOVIM_LATEST/$NEOVIM_NAME -O $HOME/Applications/$NEOVIM_NAME
-chmod +x $HOME/Applications/$NEOVIM_NAME
-rm -f $HOME/.local/bin/nvim
-ln -s $HOME/Applications/$NEOVIM_NAME $HOME/.local/bin/nvim
+if ! command -v nvim >& /dev/null; then
+    echo
+    echo "Installing neovim..."
+    echo "-------------------------------------------------------------------------"
+    NEOVIM_LATEST=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
+    NEOVIM_NAME=nvim-linux-x86_64.appimage
+    mkdir $HOME/Applications
+    wget https://github.com/neovim/neovim/releases/download/$NEOVIM_LATEST/$NEOVIM_NAME -O $HOME/Applications/$NEOVIM_NAME
+    chmod +x $HOME/Applications/$NEOVIM_NAME
+    rm -f $HOME/.local/bin/nvim
+    ln -s $HOME/Applications/$NEOVIM_NAME $HOME/.local/bin/nvim
+fi
 
 # SSH Key
 if [ ! -f $HOME/.ssh/id_* ]; then
