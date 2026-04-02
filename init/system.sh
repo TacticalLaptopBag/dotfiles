@@ -46,7 +46,8 @@ apt-get install \
         libfuse2 \
         vlc \
         flatpak \
-        stow
+        stow \
+	wl-clipboard
 
 # Brave
 echo
