@@ -35,6 +35,9 @@ alias doc="docker"
 alias docom="docker compose"
 alias fix-dual-boot-time="timedatectl set-local-rtc 1 --adjust-system-clock"
 alias unfix-dual-boot-time="timedatectl set-local-rtc 0 --adjust-system-clock"
+alias skp="ssh-key-picker"
+alias c="wl-copy"
+alias v="wl-paste"
 
 # Load machine-specific aliases
 if [ -f ~/.bash_aliases.local ]; then
