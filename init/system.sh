@@ -40,6 +40,7 @@ apt-get install \
         tmux \
         zsh \
         git \
+	git-lfs \
         gnupg \
         gpg \
         ca-certificates \
