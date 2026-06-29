@@ -161,3 +161,11 @@ if [[ ! -z "$TMUX" ]]; then
   cat /run/motd.dynamic
 fi
 
+export PATH=$PATH:$HOME/.cargo/bin
+
+export PATH="/home/stephen/.gdvm/bin/current_godot:/home/stephen/.gdvm/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/home/stephen/.lmstudio/bin"
+# End of LM Studio CLI section
+
