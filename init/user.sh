@@ -22,6 +22,12 @@ echo "Installing nifty pipx utils..."
 echo "-------------------------------------------------------------------------"
 pipx install uv git-profile
 
+echo
+echo "Installing Rust and nifty Rust utils..."
+echo "-------------------------------------------------------------------------"
+rustup default stable
+cargo install ssh-key-picker
+
 # nvm
 if ! command -v nvm >& /dev/null; then
     echo

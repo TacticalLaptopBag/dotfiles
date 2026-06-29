@@ -40,13 +40,15 @@ apt-get install \
         tmux \
         zsh \
         git \
+	git-lfs \
         gnupg \
         gpg \
         ca-certificates \
         libfuse2 \
         vlc \
         flatpak \
-        stow
+        stow \
+	wl-clipboard
 
 # Brave
 echo
@@ -166,18 +168,6 @@ usermod -aG docker,dialout,uucp,tty $USER
 echo
 echo "All done!"
 echo
-
-if [ -z $SKIP_USER_SH ]; then
-    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    while true; do
-        read -rp "Would you like to run user.sh now? (y/n): " run_init
-        case "$run_init" in
-            y) su $USER -c "$SCRIPT_DIR/user.sh"; break ;;
-            n) break ;;
-            *) ;;
-        esac
-    done
-fi
 
 echo
 echo "Some configuration to-dos:"
