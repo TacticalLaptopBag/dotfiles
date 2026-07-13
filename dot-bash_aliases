@@ -28,6 +28,13 @@ alias gss="git stash"
 alias gsu="git stash --include-untracked"
 alias gsp="git stash pop"
 
+gpub() {
+	REMOTE=${1:-origin}
+	BRANCH=$(git symbolic-ref --short HEAD)
+	echo "git push -u ${REMOTE} ${BRANCH}"
+	git push -u "${REMOTE}" "${BRANCH}"
+}
+
 # Generic
 alias clr="clear"
 alias dop="xdg-open ."
