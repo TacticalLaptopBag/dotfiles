@@ -37,7 +37,7 @@ local hasRust = function()
 end
 
 -- List of LSPs: https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
-local tools = { 
+local tools = {
   -- Web
   {"html", condition = hasNode },
   {"cssls", condition = hasNode },
@@ -46,41 +46,43 @@ local tools = {
   {"eslint", condition = hasNode },
   {"jsonls", condition = hasNode },
   {"ts_ls", condition = hasNode },
- 
+
   -- Terminal
   {"bashls", condition = hasBash },
- 
+  {"shellcheck", condition = hasBash },
+
   -- C
   {"clangd", condition = hasGCC },
   {"cmake", condition = hasGCC },
   {"csharp_ls", condition = hasDotnet },
- 
+
   -- Godot
   "gdtoolkit",
- 
+
   -- Java
   {"java_language_server", condition = hasJavac },
   {"kotlin_language_server", condition = hasJavac },
   {"gradle_ls", condition = hasJavac },
- 
+
   -- Python
   {"ruff", condition = hasPython },
   {"basedpyright", condition = hasPython },
- 
+  {"uv", condition = hasPython },
+
   -- TypeScript/JavaScript
   {"ts_ls", condition = hasNode },
   {"eslint", condition = hasNode },
   {"angularls", condition = hasNode },
- 
+
   -- Rust
   {"rust_analyzer", condition = hasRust },
- 
+
   -- Misc.
   "docker_language_server",
   "nginx_language_server",
   "systemd_lsp",
   "yamlls",
- 
+
   -- Misc. Languages
   "lua_ls",
 }
