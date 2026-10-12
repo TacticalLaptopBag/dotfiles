@@ -48,7 +48,8 @@ apt-get install \
     vlc \
     flatpak \
     stow \
-    wl-clipboard
+    wl-clipboard \
+    kitty
 
 # Brave
 echo
