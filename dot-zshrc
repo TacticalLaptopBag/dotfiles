@@ -254,3 +254,86 @@ if [[ ! -z "$TMUX" ]]; then
   cat /run/motd.dynamic
 fi
 
+# i like zstd
+function zzip() {
+  function zzip_usage() {
+    echo "zstd zip"
+    echo "Shorthand zsh function for compressing multiple files into a .tar.zst file."
+    echo
+    echo "Usage: $1 [OPTION]... <ARCHIVE> <FILES>..."
+    echo
+    echo "Options:"
+    echo "  -h, --help"
+    echo "          Print help information."
+    echo "  -c, --cores <CORES>"
+    echo "          Use this many CPU cores. Set to 0 to use all physical cores."
+    echo "  -f, --force"
+    echo "          Disable input and output checks. Allows overwriting existing files."
+    echo "  -l, --level <LEVEL>"
+    echo "          Compression level, between 1 and 19."
+  }
+
+  # -D: remove parsed options from the positional parameters ($@)
+  # -E: allow options to be mixed with arguments
+  # -K: arguments have default values, don't overwrite them if missing
+  # l+: look for -l (the + means it takes an argument)
+  # -level+: look for --level
+  local flag_help flag_force
+  local arg_compression_level=(-l 10)
+  local arg_core_count=0
+  zparseopts -D -E -F -K -- \
+    {h,-help}=flag_help \
+    {f,-force}=flag_force \
+    {l,-level}:=arg_compression_level \
+    {c,-cores}:=arg_core_count
+  if [[ $? -ne 0 ]]; then
+    return 1
+  fi
+  
+  local force=""
+  if (( $#flag_force )); then
+    force="-f"
+  fi
+
+  if (( $#flag_help )); then
+    zzip_usage "$0"
+    return 0
+  fi
+
+  if [[ $# -lt 2 ]]; then
+    zzip_usage "$0"
+    return 1
+  fi
+
+  tar cf - ${@:2} | zstd -T${arg_core_count[-1]} -${arg_compression_level[-1]} ${force} -o $1
+}
+
+function zunzip() {
+  function zunzip_usage() {
+    echo "zstd unzip"
+    echo "Shorthand zsh function for uncompressing a .tar.zst file into the current working directory."
+    echo
+    echo "Usage: $1 <ARCHIVE>"
+  }
+
+  local flag_help
+  zparseopts -D -E -F -- \
+    {h,-help}=flag_help
+  if [[ $? -ne 0 ]]; then
+    return 1
+  fi
+  
+  
+  if (( $#flag_help )); then
+    zunzip_usage "$0"
+    return 0
+  fi
+
+  if [[ $# -lt 1 ]]; then
+    zunzip_usage "$0"
+    return 1
+  fi
+
+  zstd -dc $1 | tar xf -
+}
+
