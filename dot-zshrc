@@ -121,15 +121,7 @@ if [ -d "$HOME/.nvm" ]; then
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
-# pyenv
-# https://github.com/pyenv/pyenv
-which ~/.pyenv/bin/pyenv > /dev/null
-if [ "$?" = "0" ]; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init - zsh)"
-fi
-
+# Activate a venv inside cwd. First argument is the path to the venv. If not supplied, '.venv' is used
 function activate () {
     if [[ -z "$1" ]]; then
         VENV_NAME=".venv"
@@ -140,6 +132,7 @@ function activate () {
     source "$VENV_NAME/bin/activate"
 }
 
+# Create venv. First argument is the venv name. If not supplied, '.venv' is used
 function venv () {
     if [[ -z "$1" ]]; then
         VENV_NAME=".venv"
