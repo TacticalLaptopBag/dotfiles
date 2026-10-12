@@ -25,30 +25,30 @@ echo "-------------------------------------------------------------------------"
 apt-get update
 # Use vim-gtk3 for clipboard support
 apt-get install \
-        apt-transport-https \
-        python3 \
-        python3-venv \
-        python3-pip \
-        python-is-python3 \
-        pipx \
-        rustup \
-        openjdk-25-jdk \
-        vim-gtk3 \
-        curl \
-        wget \
-        build-essential \
-        tmux \
-        zsh \
-        git \
-	git-lfs \
-        gnupg \
-        gpg \
-        ca-certificates \
-        libfuse2 \
-        vlc \
-        flatpak \
-        stow \
-	wl-clipboard
+    apt-transport-https \
+    python3 \
+    python3-venv \
+    python3-pip \
+    python-is-python3 \
+    pipx \
+    rustup \
+    openjdk-25-jdk \
+    vim-gtk3 \
+    curl \
+    wget \
+    build-essential \
+    tmux \
+    zsh \
+    git \
+    git-lfs \
+    gnupg \
+    gpg \
+    ca-certificates \
+    libfuse2 \
+    vlc \
+    flatpak \
+    stow \
+    wl-clipboard
 
 # Brave
 echo
