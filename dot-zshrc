@@ -7,11 +7,52 @@ export PATH="$PATH:$HOME/.cargo/bin:$HOME/.lmstudio/bin:$HOME/.gdvm/bin/current_
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+autoload -U add-zsh-hook
+
+# Capture previous command return code in RETVAL
+_capture_return_code() { export RETVAL=$? }
+add-zsh-hook precmd _capture_return_code
+
+# Customize cursor in terminals that support it
+# '\e[1 q': Blinking block
+# '\e[2 q': Steady block
+# '\e[3 q': Blinking underline
+# '\e[4 q': Steady underline
+# '\e[5 q': Blinking beam
+# '\e[6 q': Steady beam
+_fix_cursor() { echo -ne '\e[1 q' }
+add-zsh-hook precmd _fix_cursor
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="agnoster"
+
+# My original favorite. It's what I picture when I first think of a themed shell.
+# I love the nonzero indicator and git status, but it doesn't have a timestamp,
+# and it gets really cramped on vertically split terminals.
+# I modded it to put the prompt on a newline if the cwd is too long,
+# but it just doesn't feel right.
+# ZSH_THEME="agnoster"
+
+# I like the layout, but I'm not a fan of not having my user@hostname visible...
+# It also doesn't have a nonzero indicator
+# ZSH_THEME="amuse"
+
+# This is really good, but I'd like it more if I could have powerline theming, and better colors.
+# Red makes me think I'm root for some reason.
+# ZSH_THEME="aussiegeek"
+
+# I'm actually a huge fan of the muted prompt here.
+# I don't like the lack of a nonzero indicator,
+# and the Node version is wasted space for me, but I can mod that myself
+ZSH_THEME="bureau"
+
+# Colors are clean and readable, the nonzero indicator is just red FAIL after the command exits.
+# It has a timestamp and the git indicator is minimal, which I like.
+# I think I like bureau better, but this is a close second.
+# ZSH_THEME="dst"
+
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -76,6 +117,62 @@ ZSH_THEME="agnoster"
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
+
+if [ "$ZSH_THEME" = "agnoster" ]; then
+  prompt_newline() {
+      echo -n " %K{default}%F{$CURRENT_BG}"
+      echo -n $'\ue0b0'
+      echo "%k%f"
+      CURRENT_BG="NONE"
+  }
+  
+  prompt_context() {
+    prompt_segment 235 13 "%D{%Y-%m-%d %H:%M:%S}"
+    local context="$USER@$(hostname)"
+    local branch="$(g rev-parse --abbrev-ref -q HEAD 2> /dev/null)"
+    local cwd="$(pwd)"
+    if [ -z "$BRANCH" ]; then
+      cwd="$cwd$branch"
+    fi
+    local prompt_context="%(!.%{%F{yellow}%}.)%n@%m"
+    # TODO: Should also add the length of the git branch to the length of cwd, if any
+    if [[ "$USERNAME" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+      if [ $(( ${#cwd} - ${#HOME} )) -ge $(( ${#context} + (${#context} / 2) )) ]; then
+        prompt_segment gray default "$prompt_context"
+        prompt_newline
+      else
+        prompt_segment black default "$prompt_context"
+      fi
+    fi
+  }
+elif [ "$ZSH_THEME" = "bureau" ]; then
+  BUREAU_PROMPT="$PROMPT"
+  _inject_exit_status() {
+    if [[ $RETVAL -ne 0 ]]; then
+      PROMPT="%{%F{red}%}✘%{%f%} $BUREAU_PROMPT"
+    else
+      PROMPT="$BUREAU_PROMPT"
+    fi
+   #else
+   #  PROMPT="%{%F{green}%}✓%{%f%} $BUREAU_PROMPT"
+   #fi
+    }
+  add-zsh-hook precmd _inject_exit_status
+
+  # I don't want the nvm version
+  nvm_prompt_info() {
+   #if [[ $RETVAL -eq 0 ]]; then
+   #  echo "%{%F{green}%}✓%{%f%}"
+   #else
+   #  echo "%{%F{red}%}✘%{%f%}"
+   #fi
+
+    # local nvm_prompt=${$(nvm current)#v}
+    # echo "${ZSH_THEME_NVM_PROMPT_PREFIX}${nvm_prompt:gs/%/%%}${ZSH_THEME_NVM_PROMPT_SUFFIX}"
+  }
+fi
+
+setopt HIST_IGNORE_SPACE
 
 # User configuration
 
