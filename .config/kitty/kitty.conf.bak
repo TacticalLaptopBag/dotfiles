@@ -1,0 +1,8 @@
+# kitty_mod+F2 to edit this file
+# kitty_mod+F5 to reload this config
+#
+# By default, kitty_mod is ctrl+shift:
+# kitty_mod ctrl+shift
+
+shell /bin/zsh
+
