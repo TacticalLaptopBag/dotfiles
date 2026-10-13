@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-if [ -z $SKIP_SYSTEM_SH ]; then
+if [ -z "$SKIP_SYSTEM_SH" ]; then
     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     while true; do
         read -rp "Would you like to run system.sh first? (y/n): " run_init
@@ -26,7 +26,7 @@ echo
 echo "Installing Rust and nifty Rust utils..."
 echo "-------------------------------------------------------------------------"
 rustup default stable
-cargo install ssh-key-picker
+cargo install ssh-key-picker cargo-binstall
 
 # nvm
 if ! command -v nvm >& /dev/null; then
@@ -49,10 +49,10 @@ if ! command -v lazygit >& /dev/null; then
     echo "Installing lazygit..."
     echo "-------------------------------------------------------------------------"
     LAZYGIT_LATEST=$(curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
-    wget https://github.com/jesseduffield/lazygit/releases/download/${LAZYGIT_LATEST}/lazygit_${LAZYGIT_LATEST:1}_linux_x86_64.tar.gz -O /tmp/lazygit.tar.gz
+    wget "https://github.com/jesseduffield/lazygit/releases/download/${LAZYGIT_LATEST}/lazygit_${LAZYGIT_LATEST:1}_linux_x86_64.tar.gz" -O /tmp/lazygit.tar.gz
     mkdir /tmp/lazygit
     tar xzf /tmp/lazygit.tar.gz -C /tmp/lazygit
-    mv /tmp/lazygit/lazygit $HOME/.local/bin
+    mv /tmp/lazygit/lazygit "$HOME/.local/bin"
     rm -rf /tmp/lazygit.tar.gz /tmp/lazygit/
 fi
 
@@ -63,19 +63,19 @@ if ! command -v nvim >& /dev/null; then
     echo "-------------------------------------------------------------------------"
     NEOVIM_LATEST=$(curl -s https://api.github.com/repos/neovim/neovim/releases/latest | grep '"tag_name"' | cut -d'"' -f4)
     NEOVIM_NAME=nvim-linux-x86_64.appimage
-    mkdir -p $HOME/Applications
-    wget https://github.com/neovim/neovim/releases/download/$NEOVIM_LATEST/$NEOVIM_NAME -O $HOME/Applications/$NEOVIM_NAME
-    chmod +x $HOME/Applications/$NEOVIM_NAME
-    rm -f $HOME/.local/bin/nvim
-    ln -s $HOME/Applications/$NEOVIM_NAME $HOME/.local/bin/nvim
+    mkdir -p "$HOME/Applications"
+    wget "https://github.com/neovim/neovim/releases/download/$NEOVIM_LATEST/$NEOVIM_NAME" -O "$HOME/Applications/$NEOVIM_NAME"
+    chmod +x "$HOME/Applications/$NEOVIM_NAME"
+    rm -f "$HOME/.local/bin/nvim"
+    ln -s "$HOME/Applications/$NEOVIM_NAME" "$HOME/.local/bin/nvim"
 fi
 
 # SSH Key
-if [ ! -f $HOME/.ssh/id_* ]; then
+if [ ! -f "$HOME/.ssh/id_*" ]; then
     echo
     echo "Generating SSH key..."
     echo "-------------------------------------------------------------------------"
-    ssh-keygen -f $HOME/.ssh/id_ed25519 -t ed25519 -N ''
+    ssh-keygen -f "$HOME/.ssh/id_ed25519" -t ed25519 -N ''
 fi
 
 # Flatpaks
@@ -87,7 +87,6 @@ flatpak --user install -y \
     com.github.tchx84.Flatseal \
     com.obsproject.Studio \
     com.usebottles.bottles \
-    io.freetubeapp.FreeTube \
     io.github.alainm23.planify \
     org.audacityteam.Audacity \
     org.gnome.GTG \
@@ -96,14 +95,17 @@ flatpak --user install -y \
     org.keepassxc.KeePassXC \
     org.libreoffice.LibreOffice \
     org.mozilla.Thunderbird \
-    ch.protonmail.protonmail-bridge
-
+    ch.protonmail.protonmail-bridge \
+    com.github.zocker_160.SyncThingy \
+    it.mijorus.gearlever \
+    net.cozic.joplin_desktop \
+    org.kde.kdenlive \
+    org.signal.Signal
 
 # Git profiles
 echo
 echo "Configure your git profiles:"
 echo "-------------------------------------------------------------------------"
-declare -A git_profile_names
 declare -A git_profile_users
 declare -A git_profile_emails
 profile_order=()
@@ -113,7 +115,6 @@ while true; do
     [[ "$profile_name" == "done" ]] && break
     read -rp "Enter username: " profile_user
     read -rp "Enter email: " profile_email
-    git_profile_names["$profile_name"]="$profile_name"
     git_profile_users["$profile_name"]="$profile_user"
     git_profile_emails["$profile_name"]="$profile_email"
     profile_order+=("$profile_name")
@@ -124,10 +125,11 @@ for profile in "${profile_order[@]}"; do
         "$profile" \
         "${git_profile_users[$profile]}" \
         "${git_profile_emails[$profile]}" \
-        >> $HOME/.gitconfig
+        >> "$HOME/.gitconfig"
 done
 
 echo "Git profiles created in $HOME/.gitconfig"
 
 echo
 echo "All done!"
+
