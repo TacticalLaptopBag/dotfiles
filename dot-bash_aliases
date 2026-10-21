@@ -37,6 +37,7 @@ gpub() {
 
 # Generic
 alias woman="man"  # yeah, im a certified woman respector.
+alias y="yazi"
 alias clr="clear"
 alias dop="xdg-open ."
 alias doc="docker"
