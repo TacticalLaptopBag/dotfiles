@@ -148,15 +148,22 @@ if [ "$ZSH_THEME" = "agnoster" ]; then
 elif [ "$ZSH_THEME" = "bureau" ]; then
   BUREAU_PROMPT="$PROMPT"
   _inject_exit_status() {
+    local status_indicator=""
+
     if [[ $RETVAL -ne 0 ]]; then
-      PROMPT="%{%F{red}%}✘%{%f%} $BUREAU_PROMPT"
-    else
-      PROMPT="$BUREAU_PROMPT"
+      status_indicator="%{%F{red}%}✘%{%f%} "
     fi
    #else
-   #  PROMPT="%{%F{green}%}✓%{%f%} $BUREAU_PROMPT"
+   #  status_indicator="%{%F{green}%}✓%{%f%}"
    #fi
-    }
+
+    local venv_info=""
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+      venv_info="%{%F{cyan}%}(${VIRTUAL_ENV:t})%{%f%} "
+    fi
+
+    PROMPT="${status_indicator}${venv_info}${BUREAU_PROMPT}"
+  }
   add-zsh-hook precmd _inject_exit_status
 
   # I don't want the nvm version
