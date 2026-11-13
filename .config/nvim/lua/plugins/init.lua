@@ -3,7 +3,7 @@ local overrides = require("configs.overrides")
 return {
   {
     "stevearc/conform.nvim",
-    -- event = 'BufWritePre', -- uncomment for format on save
+    event = 'BufWritePre', -- uncomment for format on save
     opts = require "configs.conform",
   },
 
@@ -41,5 +41,17 @@ return {
   {
     "nvim-tree/nvim-tree.lua",
     opts = overrides.nvimtree,
+  },
+
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-mini/mini.nvim",
+    },
+    ft = "markdown",
+    ---@module "render-markdown"
+    ---@type render.md.UserConfig
+    opts = {},
   },
 }
