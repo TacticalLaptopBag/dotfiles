@@ -20,7 +20,7 @@ export PATH="$PATH:$HOME/.local/bin"
 echo
 echo "Installing nifty pipx utils..."
 echo "-------------------------------------------------------------------------"
-pipx install uv git-profile
+pipx install uv git-profile sqlit
 
 echo
 echo "Installing Rust and nifty Rust utils..."
